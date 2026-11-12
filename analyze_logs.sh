@@ -17,16 +17,16 @@ for i in $(seq 1 300); do
     "${ips[$index]}" "$second" "${methods[$index]}" "${paths[$index]}" "${codes[$index]}" >> "$log_file"
 done
 
-echo "???? $log_file ??????: $(grep -Ec '^[0-9]{1,3}(\.[0-9]{1,3}){3} ' "$log_file") ???????"
-echo "????? ?????????? ????????: $(grep -Ec '^[0-9]{1,3}(\.[0-9]{1,3}){3} ' "$log_file")"
-echo "???-3 IP-?????? ?? ????? ????????:"
+echo "Файл $log_file создан: $(grep -Ec '^[0-9]{1,3}(\.[0-9]{1,3}){3} ' "$log_file") записей"
+echo "Общее количество запросов: $(grep -Ec '^[0-9]{1,3}(\.[0-9]{1,3}){3} ' "$log_file")"
+echo "Топ-3 IP-адреса по числу запросов:"
 grep -E '^[0-9]{1,3}(\.[0-9]{1,3}){3} ' "$log_file" | awk '{print $1}' | sort | uniq -c | sort -nr | head -n 3
 
 awk '
-  $9 ~ /^4[0-9][0-9]$/ { count4++ }
-  $9 ~ /^5[0-9][0-9]$/ { count5++ }
+  $8 ~ /^4[0-9][0-9]$/ { count4++ }
+  $8 ~ /^5[0-9][0-9]$/ { count5++ }
   END {
-    printf "?????????? ???????? ? ?????? 4xx: %d\n", count4
-    printf "?????????? ???????? ? ?????? 5xx: %d\n", count5
+    printf "Количество ответов с кодами 4xx: %d\n", count4
+    printf "Количество ответов с кодами 5xx: %d\n", count5
   }
 ' "$log_file"

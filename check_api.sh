@@ -2,7 +2,7 @@
 set -u
 
 if [[ $# -ne 1 || -z "${1:-}" ]]; then
-  echo "?????????????: $0 <URL>" >&2
+  echo "Использование: $0 <URL>" >&2
   exit 1
 fi
 
@@ -13,9 +13,9 @@ if ! http_code=$(curl --silent --show-error --output /dev/null \
 fi
 
 if [[ "$http_code" == "200" ]]; then
-  echo "API ????????"
+  echo "API доступен"
   exit 0
 fi
 
-echo "API ??????????, ??? ??????: ${http_code}"
+echo "API недоступен, код ответа: ${http_code}"
 exit 1

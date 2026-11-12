@@ -1,0 +1,13 @@
+# Logs and generated files
+*.log
+*.pcap
+*.pcapng
+*.tmp
+*.temp
+*.swp
+*~
+
+# Build artifacts
+build/
+dist/
+*.tar.gz
